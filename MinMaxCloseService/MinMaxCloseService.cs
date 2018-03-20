@@ -53,7 +53,7 @@ namespace Discord.Addons.MinMaxClose
 					else
 					{
 						var embed = new EmbedBuilder();
-						embed.AddField(DateTime.UtcNow.ToString() + "UTC.", minMaxCloseMessage.ShortMessage);
+						embed.AddField(DateTime.UtcNow.ToString() + " UTC.", minMaxCloseMessage.ShortMessage);
 						await message.ModifyAsync(x => x.Embed = embed.Build());
 					}
 
