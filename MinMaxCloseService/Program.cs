@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MinMaxCloseService
+namespace Discord.Addons.MinMaxClose
 {
     class Program
     {
