@@ -10,7 +10,7 @@ namespace Discord.Addons.MinMaxClose
 	public class MinMaxCloseService
 	{
 		private DiscordSocketClient Client { get; }
-		private static List<MinMaxCloseMessage> messages { get; set; }
+		private List<MinMaxCloseMessage> messages { get; set; }
 		Emoji stop = new Emoji("\ud83c\uddfd");
 		Emoji minimize = new Emoji("\u2B06");
 		Emoji maximize = new Emoji("\u2195");
