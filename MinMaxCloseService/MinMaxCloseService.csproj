@@ -3,6 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Description>A Discord.Net Addon that uses reactions to minimize and maximize message sent by bots, espically large messages.  It allows any user to minimize or maximize a message, but only the original command caller can delete it.  There is a 5 minute auto delete time with each mesage as well.</Description>
+    <Authors>Orcinus</Authors>
+    <Company>N/A</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>discord.net,minmaxcloseservice,discord, bot, service</PackageTags>
+    <PackageId>Discord.Addons.MinMaxCloseService</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
