@@ -10,6 +10,8 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>discord.net,minmaxcloseservice,discord, bot, service</PackageTags>
     <PackageId>Discord.Addons.MinMaxCloseService</PackageId>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Made some methods private</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

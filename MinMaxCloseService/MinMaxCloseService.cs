@@ -26,14 +26,14 @@ namespace Discord.Addons.MinMaxClose
 			client.ReactionsCleared += MinMaxCloseReactionsCleared;
 		}
 
-		public async Task MinMaxCloseRemoveMessage(Cacheable<IMessage, ulong> cacheable, ISocketMessageChannel channel)
+		private async Task MinMaxCloseRemoveMessage(Cacheable<IMessage, ulong> cacheable, ISocketMessageChannel channel)
 		{
 			var message = await cacheable.GetOrDownloadAsync();
 			if (messages.FirstOrDefault(x => x.Message == message).Message == message) messages.Remove(messages.FirstOrDefault(x => x.Message == message));
 			else return;
 		}
 
-		public async Task MinMaxCloseReaction(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel, SocketReaction reaction)
+		private async Task MinMaxCloseReaction(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel, SocketReaction reaction)
 		{
 			var message = await cacheable.GetOrDownloadAsync();
 			if (reaction.UserId == Client.CurrentUser.Id) return;
@@ -81,7 +81,7 @@ namespace Discord.Addons.MinMaxClose
 			}
 		}
 
-		public async Task MinMaxCloseReactionRemoved(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel, SocketReaction reaction)
+		private async Task MinMaxCloseReactionRemoved(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel, SocketReaction reaction)
 		{
 			var message = await cacheable.GetOrDownloadAsync();
 			MinMaxCloseMessage minMaxCloseMessage = null;
@@ -93,7 +93,7 @@ namespace Discord.Addons.MinMaxClose
 			if (!(message.Reactions.ContainsKey(info))) await message.AddReactionAsync(info);
 		}
 
-		public async Task MinMaxCloseReactionsCleared(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel)
+		private async Task MinMaxCloseReactionsCleared(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel)
 		{
 			var message = await cacheable.GetOrDownloadAsync();
 
@@ -121,7 +121,7 @@ namespace Discord.Addons.MinMaxClose
 		}
 
 
-		public async Task DelayDeleteAsync(SocketCommandContext context = null, IMessage message = null, int? timeDelay = null)
+		private async Task DelayDeleteAsync(SocketCommandContext context = null, IMessage message = null, int? timeDelay = null)
 		{
 			if (context != null)
 			{
