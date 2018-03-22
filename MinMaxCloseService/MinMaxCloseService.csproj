@@ -11,7 +11,10 @@
     <PackageTags>discord.net,minmaxcloseservice,discord, bot, service</PackageTags>
     <PackageId>Discord.Addons.MinMaxCloseService</PackageId>
     <Version>1.0.2</Version>
-    <PackageReleaseNotes>Made some methods private</PackageReleaseNotes>
+    <PackageReleaseNotes>Updating urls</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/justuscook/Discord.Addons.MinMaxCloseService</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/justuscook/Discord.Addons.MinMaxCloseService</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
