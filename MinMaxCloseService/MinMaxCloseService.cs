@@ -21,7 +21,9 @@ namespace Discord.Addons.MinMaxClose
 			Client = client;
 			messages = new List<MinMaxCloseMessage>();
 			client.ReactionAdded += MinMaxCloseReaction;
+			client.ReactionRemoved += MinMaxCloseReactionRemoved;
 			client.MessageDeleted += MinMaxCloseRemoveMessage;
+			client.ReactionsCleared += MinMaxCloseReactionsCleared;
 		}
 
 		public async Task MinMaxCloseRemoveMessage(Cacheable<IMessage, ulong> cacheable, ISocketMessageChannel channel)
@@ -70,11 +72,38 @@ namespace Discord.Addons.MinMaxClose
 					}
 					break;
 				case "\u2139"://info
+					if(minMaxCloseMessage.InfoCalled) return;
+					minMaxCloseMessage.InfoCalled = true;
 					await message.RemoveReactionAsync(info, reaction.User.GetValueOrDefault());
 					var msg = await message.Channel.SendMessageAsync("Use :regional_indicator_x: to delete the message, can only be done by the user that called the command, :arrow_up_down: to maximize the message,:arrow_up: to minimize the message.");
 					_ = Task.Run(() => DelayDeleteAsync(message: msg as IMessage));
 					break;
 			}
+		}
+
+		public async Task MinMaxCloseReactionRemoved(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel, SocketReaction reaction)
+		{
+			var message = await cacheable.GetOrDownloadAsync();
+			MinMaxCloseMessage minMaxCloseMessage = null;
+			if (messages.Any(x => x.Message.Id == message.Id)) minMaxCloseMessage = messages.FirstOrDefault(x => x.Message.Id == message.Id);
+			else return;
+			if (!(message.Reactions.ContainsKey(stop))) await message.AddReactionAsync(stop);
+			if (!(message.Reactions.ContainsKey(minimize))) await message.AddReactionAsync(minimize);
+			if (!(message.Reactions.ContainsKey(maximize))) await message.AddReactionAsync(maximize);
+			if (!(message.Reactions.ContainsKey(info))) await message.AddReactionAsync(info);
+		}
+
+		public async Task MinMaxCloseReactionsCleared(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel)
+		{
+			var message = await cacheable.GetOrDownloadAsync();
+
+			MinMaxCloseMessage minMaxCloseMessage = null;
+			if (messages.Any(x => x.Message.Id == message.Id)) minMaxCloseMessage = messages.FirstOrDefault(x => x.Message.Id == message.Id);
+			else return;
+			if (!(message.Reactions.ContainsKey(stop))) await message.AddReactionAsync(stop);
+			if (!(message.Reactions.ContainsKey(minimize))) await message.AddReactionAsync(minimize);
+			if (!(message.Reactions.ContainsKey(maximize))) await message.AddReactionAsync(maximize);
+			if (!(message.Reactions.ContainsKey(info))) await message.AddReactionAsync(info);
 		}
 
 		public async Task SendMMCMessageAsync(SocketCommandContext context, IUserMessage message)
