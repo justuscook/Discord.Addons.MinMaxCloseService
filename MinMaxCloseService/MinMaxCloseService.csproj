@@ -10,7 +10,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>discord.net,minmaxcloseservice,discord, bot, service</PackageTags>
     <PackageId>Discord.Addons.MinMaxCloseService</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.4</Version>
     <PackageReleaseNotes>Updating urls</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/justuscook/Discord.Addons.MinMaxCloseService</PackageProjectUrl>
     <RepositoryUrl>https://github.com/justuscook/Discord.Addons.MinMaxCloseService</RepositoryUrl>

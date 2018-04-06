@@ -12,7 +12,7 @@ namespace Discord.Addons.MinMaxClose
 		private DiscordSocketClient Client { get; }
 		private List<MinMaxCloseMessage> messages { get; set; }
 		Emoji stop = new Emoji("\ud83c\uddfd");
-		Emoji minimize = new Emoji("\u2B06");
+		Emoji minimize = new Emoji("\u2B07");
 		Emoji maximize = new Emoji("\u2195");
 		Emoji info = new Emoji("\u2139");
 
@@ -47,7 +47,7 @@ namespace Discord.Addons.MinMaxClose
 					if (minMaxCloseMessage.UserID != reaction.UserId) return;
 					await minMaxCloseMessage.Message.DeleteAsync();
 					break;
-				case "\u2B06"://minimize
+				case "\u2B07"://minimize
 					await message.RemoveReactionAsync(minimize, reaction.User.GetValueOrDefault());
 					if (!minMaxCloseMessage.Maximized) return;
 					minMaxCloseMessage.Maximized = false;
@@ -75,7 +75,7 @@ namespace Discord.Addons.MinMaxClose
 					if(minMaxCloseMessage.InfoCalled) return;
 					minMaxCloseMessage.InfoCalled = true;
 					await message.RemoveReactionAsync(info, reaction.User.GetValueOrDefault());
-					var msg = await message.Channel.SendMessageAsync("Use :regional_indicator_x: to delete the message, can only be done by the user that called the command, :arrow_up_down: to maximize the message,:arrow_up: to minimize the message.");
+					var msg = await message.Channel.SendMessageAsync("Use :regional_indicator_x: to delete the message, can only be done by the user that called the command, :arrow_up_down: to maximize the message,:arrow_down: to minimize the message.");
 					_ = Task.Run(() => DelayDeleteAsync(message: msg as IMessage));
 					break;
 			}
@@ -87,10 +87,11 @@ namespace Discord.Addons.MinMaxClose
 			MinMaxCloseMessage minMaxCloseMessage = null;
 			if (messages.Any(x => x.Message.Id == message.Id)) minMaxCloseMessage = messages.FirstOrDefault(x => x.Message.Id == message.Id);
 			else return;
-			if (!(message.Reactions.ContainsKey(stop))) await message.AddReactionAsync(stop);
+			if (!(message.Reactions.ContainsKey(info))) await message.AddReactionAsync(info);
 			if (!(message.Reactions.ContainsKey(minimize))) await message.AddReactionAsync(minimize);
 			if (!(message.Reactions.ContainsKey(maximize))) await message.AddReactionAsync(maximize);
-			if (!(message.Reactions.ContainsKey(info))) await message.AddReactionAsync(info);
+			if (!(message.Reactions.ContainsKey(stop))) await message.AddReactionAsync(stop);
+
 		}
 
 		private async Task MinMaxCloseReactionsCleared(Cacheable<IUserMessage, ulong> cacheable, ISocketMessageChannel messageChannel)
@@ -111,10 +112,10 @@ namespace Discord.Addons.MinMaxClose
 			var msg = message;
 			var minMaxCloseMessage = new MinMaxCloseMessage(msg, context);
 			messages.Add(minMaxCloseMessage);
-			await msg.AddReactionAsync(stop);
+			await msg.AddReactionAsync(info);
 			await msg.AddReactionAsync(minimize);
 			await msg.AddReactionAsync(maximize);
-			await msg.AddReactionAsync(info);
+			await msg.AddReactionAsync(stop);
 
 			_ = Task.Run(() => DelayDeleteAsync(context, msg, 300));
 
